@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import useForm from "../hooks/useForm";
+import { createClient } from "../utils/supabase/client";
+import { useRouter } from "next/navigation";
 
 
 export default function AuthForm({status}){
@@ -15,11 +17,47 @@ export default function AuthForm({status}){
 
   }
 
+  const router = useRouter();
+  const supabase = createClient();
+
   const [loading, setLoading] = useState(false);
+  const [erroMessage, setErrorMessage] = useState("");
   const {formData, handleInputChange, resetForm} = useForm(initialValues);
 
-  const handleSubmit=()=>{
-    console.log("Yes")
+  const handleSubmit= async(e)=>{
+    e.preventDefault();
+
+    if(status === "register"){
+      const {data, error} = await supabase.auth.signUp({
+        email: formData.email,
+        password: formData.password
+      })
+
+      if (data){
+
+      }
+      if(error){
+        return setErrorMessage(error.message)
+      }
+
+      router.push("/auth/verify")
+      resetForm();
+     
+    }else{
+      const{error} = await supabase.auth.signInWithPassword({
+        email: formData.email,
+        password: formData.password
+      })
+
+      if(error){
+        return setErrorMessage(error.message)
+      }
+
+      router.push("/")
+      resetForm()
+    
+    }
+  
   }
 
   return(
