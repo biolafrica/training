@@ -4,7 +4,6 @@ import { useState } from "react";
 import useForm from "../hooks/useForm";
 import { createClient } from "../utils/supabase/client";
 import { useRouter } from "next/navigation";
-import { addUser } from "../utils/database/addTasks";
 
 
 export default function AuthForm({status}){
@@ -37,6 +36,7 @@ export default function AuthForm({status}){
       })
 
       if(data?.user?.id){
+
         const userData = {
           user_id : data.user.id,
           email : formData.email,
@@ -46,8 +46,19 @@ export default function AuthForm({status}){
         }
 
         await addUser(userData);
-        router.push("/auth/verify")
-        resetForm();
+
+        const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/user`,{
+          method: "POST",
+          headers:{"Content-Type" : "application/json"},
+          body: JSON.stringify(userData),
+        });
+
+        const newUser = await res.json();
+        if(newUser.data){
+          router.push("/auth/verify")
+          resetForm();
+        }
+        
       }
 
       if(error){
@@ -68,7 +79,6 @@ export default function AuthForm({status}){
 
       router.push("/")
       resetForm()
-    
     }
 
     setLoading(false);
