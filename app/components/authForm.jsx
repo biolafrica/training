@@ -4,6 +4,7 @@ import { useState } from "react";
 import useForm from "../hooks/useForm";
 import { createClient } from "../utils/supabase/client";
 import { useRouter } from "next/navigation";
+import { addUser } from "../utils/database/addTasks";
 
 
 export default function AuthForm({status}){
@@ -21,11 +22,13 @@ export default function AuthForm({status}){
   const supabase = createClient();
 
   const [loading, setLoading] = useState(false);
-  const [erroMessage, setErrorMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const {formData, handleInputChange, resetForm} = useForm(initialValues);
 
   const handleSubmit= async(e)=>{
     e.preventDefault();
+    setLoading(true);
+    setErrorMessage("");
 
     if(status === "register"){
       const {data, error} = await supabase.auth.signUp({
@@ -33,15 +36,25 @@ export default function AuthForm({status}){
         password: formData.password
       })
 
-      if (data){
+      if(data?.user?.id){
+        const userData = {
+          user_id : data.user.id,
+          email : formData.email,
+          first_name : formData.first_name,
+          last_name: formData.last_name,
+          role: formData.role
+        }
 
+        await addUser(userData);
+        router.push("/auth/verify")
+        resetForm();
       }
+
       if(error){
-        return setErrorMessage(error.message)
+        setErrorMessage(error.message);
+        setLoading(false)
+        return;
       }
-
-      router.push("/auth/verify")
-      resetForm();
      
     }else{
       const{error} = await supabase.auth.signInWithPassword({
@@ -57,11 +70,15 @@ export default function AuthForm({status}){
       resetForm()
     
     }
+
+    setLoading(false);
   
   }
 
   return(
-    <form className="auth_form" onSubmit={handleSubmit}>
+    <form className="border rounded-sm text-center" onSubmit={handleSubmit}>
+
+      {errorMessage && <h4 className="text-red-600">{errorMessage}</h4>}
 
       {status === "register" && (
         <>
@@ -98,6 +115,8 @@ export default function AuthForm({status}){
               <option value="cutomer_experience"><h5>Customer Experience</h5></option>
               <option value="order_manager"><h5>Order Manager</h5></option>
               <option value="runner">Runner</option>
+              <option value="runner">Rider</option>
+              <option value="runner">Supervisor</option>
             </select>
           </label>
 
@@ -128,7 +147,7 @@ export default function AuthForm({status}){
       </label>
 
       <button type="submit" disabled={loading}>
-        {state === "register" ?(<h5>Register</h5>):(<h5>Login</h5>)}
+        {status === "register" ?(<h5>Register</h5>):(<h5>Login</h5>)}
       </button>
     
     </form>
