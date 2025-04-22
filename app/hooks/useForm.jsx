@@ -4,9 +4,9 @@ export default function useForm(initialValues){
 
   const [formData, setFormdata] = useState(initialValues);
 
-  const handleInputChange = ()=>{
+  const handleInputChange = (e)=>{
     const name = e.target.name;
-    const value = e.taget.value;
+    const value = e.target.value;
     setFormdata({...formData, [name]: value})
   }
 

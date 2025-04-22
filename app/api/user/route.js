@@ -2,7 +2,9 @@ import { NextResponse } from "next/server";
 import { addUser } from "@/app/utils/database/addTasks";
 
 export async function POST(request){
-  const user = await request.json();
-  const data = await addUser(user);
+  const userData = await request.json();
+  console.log("received user;", userData)
+  const data = await addUser(userData);
+  console.log("sent data;", data)
   return NextResponse.json({data});
 }

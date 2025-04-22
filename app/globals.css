@@ -1,26 +1,48 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+select,
+textarea {
+  -webkit-appearance: none;
+  appearance: none;
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 10px 16px;
+  border-radius: 5px;
+  border: 1px solid black;
+  font-weight: 400;
+  font-size: clamp(14.7px, 2vw, 19px);
+  line-height: clamp(21.3px, 3vw, 27px);
+  letter-spacing: clamp(0.6%, 0.3vw, 0.7%);
+  outline: none;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+form{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.pri-btn {
+  padding: 12px 20px 12px 16px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  letter-spacing: 0.5px;
+  font-weight: 500;
+  gap: 8px;
+  background-color: black;
+  color: white;
+  width: fit-content;
+  cursor: pointer;
+  box-sizing: border-box;
+
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
-}
