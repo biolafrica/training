@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { getUserRole } from "@/app/utils/database/getTasks";
 import { Latitude, LatitudeApiError } from "@latitude-data/sdk";
-import { createNewSession } from "@/app/utils/database/addTasks";
+import { addMessage, createNewSession } from "@/app/utils/database/addTasks";
 
 
 export async function POST(req){
@@ -24,17 +24,18 @@ export async function POST(req){
     });
 
     const latitudeId = initial.uuid;
-    const messages = initial.response?.text || "Welcome to your training.";
-
+    const {message : messages} = JSON.parse(initial.response?.text )|| "Welcome to your training.";
 
 
     const session = await createNewSession(userId, role, latitudeId);
     const sessionId = session.id;
+    const sender = "assistant";
+    const savedMessages = await addMessage(sessionId, messages,sender)
 
     return NextResponse.json({
       sessionId,
       latitudeId,
-      messages,
+      savedMessages,
       is_complete: initial.response?.is_complete || false,
     });
 
