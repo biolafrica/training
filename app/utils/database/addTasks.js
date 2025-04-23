@@ -22,8 +22,9 @@ export async function createNewSession(userId, userRole){
   const supabase = await createClient();
 
   const {data: newSession, error} = await supabase 
-  .from("Session")
-  .insert({user_id: userId, role: userRole})
+  .from("Sessions")
+  .insert({user_id: userId, role: userRole,  status: "in_progress",
+    startedAt: new Date(),})
   .select()
   .single()
 

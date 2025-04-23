@@ -1,20 +1,25 @@
-import { NextResponse } from "next/server";
 import { createClient } from "../supabase/server";
 
-export async function CheckExistingSession(userId){
+export async function checkExistingSession(userId){
   const supabase = await createClient();
   
-  const {data:existingSession} = await supabase 
-  .from("Session")
+  const {data:existingSession, error} = await supabase 
+  .from("Sessions")
   .select("*")
   .eq("user_id", userId)
-  .eq("is_complete", false)
   .single()
 
-  if(!existingSession){
-    return NextResponse.json({error: "User not found"}, {status: 404})
+  if(existingSession){
+    return existingSession
+
+  }else if(!existingSession){
+    return {message :"No existing session for this user"}
+
+  }else if(error){
+    console.error("error fetching existing session:", error);
+    throw new Error(error.message);
   }
 
-  return existingSession;
+ 
 
 }
