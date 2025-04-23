@@ -1,9 +1,11 @@
 "use client"
 
+import { useRouter } from "next/navigation"
+
 export default function StartButton({id, existingSession}){
   
   const StartTest = async()=>{
-    console.log("start")
+    const router = useRouter();
 
     try {
       const res = await fetch("http://localhost:3000/api/session/start/", {
@@ -15,7 +17,9 @@ export default function StartButton({id, existingSession}){
       })
 
       const data = await res.json();
-      console.log(data)
+      if(data){
+        router(`/test/${data.savedMessages.id}`)
+      }
       
     } catch (error) {
       console.error("Error posting user id", error)

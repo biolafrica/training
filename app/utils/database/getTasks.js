@@ -17,3 +17,23 @@ export async function getUserRole(userId){
   return user;
 
 }
+
+export async function getMessage(messageId){
+  const supabase = await createClient();
+
+  const {data: message, error} = await supabase
+  .from("Messages")
+  .select()
+  .eq("id", messageId)
+  .single()
+
+
+  if(error){
+    console.error("error fetching messages:", error.message);
+    throw new Error(error.message);
+  }
+
+  return message;
+
+
+}
