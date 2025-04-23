@@ -18,13 +18,13 @@ export async function addUser(UserData){
   return data;
 }
 
-export async function createNewSession(userId, userRole){
+export async function createNewSession(userId, userRole,latitudeId){
   const supabase = await createClient();
 
   const {data: newSession, error} = await supabase 
   .from("Sessions")
   .insert({user_id: userId, role: userRole,  status: "in_progress",
-    startedAt: new Date(),})
+    startedAt: new Date(), latitude_id: latitudeId})
   .select()
   .single()
 
@@ -34,5 +34,23 @@ export async function createNewSession(userId, userRole){
   }
 
   return newSession;
+
+}
+
+export async function addMessage(sessionId, messages, sender){
+  const supabase = await createClient();
+  const {data: message, error} = await supabase 
+  .from("Messages")
+  .insert({sessionId, messages, sender})
+  .select()
+  .single()
+
+
+  if(error){
+    console.error("Add message error:", error.message);
+    throw new Error(error.message);
+  }
+
+  return message;
 
 }
