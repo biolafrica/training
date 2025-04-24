@@ -29,11 +29,29 @@ export async function getMessage(messageId){
 
 
   if(error){
-    console.error("error fetching messages:", error.message);
+    console.error("error fetching message:", error.message);
     throw new Error(error.message);
   }
 
   return message;
 
+
+}
+
+export async function getSession(sessionId){
+  const supabase = await createClient();
+
+  const {data: session, error} = await supabase
+  .from("Sessions")
+  .select()
+  .eq("id", sessionId)
+  .single()
+
+  if(error){
+    console.error("error fetching session:", error.message);
+    throw new Error(error.message);
+  }
+
+  return session;
 
 }

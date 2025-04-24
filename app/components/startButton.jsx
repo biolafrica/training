@@ -3,10 +3,9 @@
 import { useRouter } from "next/navigation"
 
 export default function StartButton({id, existingSession}){
+  const router = useRouter();
   
   const StartTest = async()=>{
-    const router = useRouter();
-
     try {
       const res = await fetch("http://localhost:3000/api/session/start/", {
         method: "POST",
@@ -18,7 +17,7 @@ export default function StartButton({id, existingSession}){
 
       const data = await res.json();
       if(data){
-        router(`/test/${data.savedMessages.id}`)
+        router.push(`/test/${data.savedMessages.id}`)
       }
       
     } catch (error) {
