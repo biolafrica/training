@@ -55,7 +55,7 @@ export async function addMessage(sessionId, messages, sender){
 
 }
 
-export async function addReport(){
+export async function addReport(sessionId, summary, detailedReport){
   const supabase = await createClient();
 
   const {data: report, error} = await supabase 
