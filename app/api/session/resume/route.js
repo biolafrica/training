@@ -1,4 +1,4 @@
-import { addMessage } from "@/app/utils/database/addTasks";
+import { addMessage, addReport } from "@/app/utils/database/addTasks";
 import { getSession } from "@/app/utils/database/getTasks";
 import { Latitude, LatitudeApiError } from "@latitude-data/sdk";
 import { NextResponse } from "next/server";
@@ -7,7 +7,7 @@ export async function POST(req){
   try {
     const formData = await req.json();
     const {sessionId, messages, sender} = formData;
-    await addMessage(sessionId, messages, sender);
+    const {id : questionId} = await addMessage(sessionId, messages, sender);
     const {latitude_id : latitudeId} = await getSession(sessionId);
     console.log("latitude-ID", latitudeId)
 
@@ -25,20 +25,23 @@ export async function POST(req){
     console.log(continuedResponse)
     const data = JSON.parse(continuedResponse.response?.text );
     const {message, is_complete} = data;
-    const agent = "assistant"
+    const agent = "assistant";
+    const savedMessages = await addMessage(sessionId, message, agent, questionId);
 
-    if(is_complete === false){
-      const savedMessages = await addMessage(sessionId, message, agent);
+    if(is_complete == true){
+      const {report} = data;
+      const {summary, detailedReport} = report;
 
-      return NextResponse.json({
-        savedMessages,
-        sessionId,
-      })
+      // create report 
+      await addReport(sessionId, summary, detailedReport);
 
-    }else if(is_complete == true){
-      console.log("Create report session")
+      // change session status to complete and endtime change to now()
     }
 
+    return NextResponse.json({
+      savedMessages,
+      sessionId,
+    })
     
   } catch (error) {
     if (error instanceof LatitudeApiError) {

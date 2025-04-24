@@ -37,11 +37,11 @@ export async function createNewSession(userId, userRole,latitudeId){
 
 }
 
-export async function addMessage(sessionId, messages, sender){
+export async function addMessage(sessionId, messages, sender, questionId){
   const supabase = await createClient();
   const {data: message, error} = await supabase 
   .from("Messages")
-  .insert({sessionId, messages, sender})
+  .insert({sessionId, messages, sender, replyTo: questionId || ""})
   .select()
   .single()
 
