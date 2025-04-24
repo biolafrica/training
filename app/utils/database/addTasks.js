@@ -54,3 +54,21 @@ export async function addMessage(sessionId, messages, sender){
   return message;
 
 }
+
+export async function addReport(){
+  const supabase = await createClient();
+
+  const {data: report, error} = await supabase 
+  .from("TrainingReport")
+  .insert({sessionId, summary, detailedReport})
+  .select()
+  .single()
+
+  if(error){
+    console.error("Add report error:", error.message);
+    throw new Error(error.message);
+  }
+
+  return report;
+
+}
