@@ -19,6 +19,7 @@ export default function ReplyForm({message}){
           headers: { "Content-Type": "application/json"},
           body: JSON.stringify({sessionId, questionId})
         })
+        
         const data = await res.json();
 
         if(!res.ok){
@@ -42,8 +43,6 @@ export default function ReplyForm({message}){
     CheckSessionAndAnswer();
 
   }, [sessionId, questionId])
-
-
 
  
   return(

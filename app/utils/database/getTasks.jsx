@@ -94,3 +94,21 @@ export async function getMessageByQuestionId(sessionId, questionId){
 
 
 }
+
+export async function getReport(sessionId){
+  const supabase = await createClient();
+
+  const {data: report, error} = await supabase
+  .from("TrainingReport")
+  .select()
+  .eq("sessionId", sessionId)
+  .single()
+
+  if(error){
+    console.error("error fetching report:", error.message);
+    throw new Error(error.message);
+  }
+
+  return report;
+
+}

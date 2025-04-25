@@ -4,7 +4,6 @@ import { useRouter } from "next/navigation"
 
 export default function StartButton({id, existingSession}){
   const sessionId = existingSession?.id;
-
   const router = useRouter();
 
   const handleButtonClick = async()=>{
@@ -33,10 +32,8 @@ export default function StartButton({id, existingSession}){
       })
 
       const data = await res.json();
-
       if (!res.ok) throw new Error(data.error || "Error starting test");
-
-      router.push(`/test/${data.savedMessages.id}`)
+      router.push(`/test/${data.savedMessages.id}`);
       
     } catch (error) {
       console.error("Error starting test", error)
