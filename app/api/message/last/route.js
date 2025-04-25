@@ -3,12 +3,14 @@ import { NextResponse } from "next/server";
 
 export async function POST(req){
   
-  const {id: sessionId} = await req.json();
+  const {sessionId} = await req.json();
+  console.log(sessionId)
   if(!sessionId){
     return NextResponse.json({error: "No sessionId received"}, {status: 400})
   }
-  
+
   const data = await getLastMessage(sessionId);
+  console.log(data);
   return NextResponse.json(data, {status: 200})
 
 }

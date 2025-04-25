@@ -61,7 +61,7 @@ export async function getLastMessage(sessionId){
 
   const {data: message, error} = await supabase
   .from("Messages")
-  .select("*")
+  .select("id")
   .eq("sessionId", sessionId)
   .order("created_at", {ascending: false})
   .limit(1)
@@ -71,6 +71,8 @@ export async function getLastMessage(sessionId){
     console.error("error fetching last message:", error.message);
     throw new Error(error.message);
   }
+
+  
 
   return message;
 
