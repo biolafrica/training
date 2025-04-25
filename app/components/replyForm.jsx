@@ -1,60 +1,58 @@
 "use client"
 
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import QuestionForm from "./questionForm";
 
 
 export default function ReplyForm({message}){
-  const {sessionId} = message;
-  const [answer, setAnswer] = useState("");
-  const [loading, setLoading] = useState(false)
-  const router = useRouter();
+  const {sessionId, id: questionId} = message;
+  const [sessionActive, setSessionActive] = useState(false);
+  const [hasAnswer, setHasAnswer] = useState(null);
+  const [finalQuestion, setFinalQuestion]= useState(false)
 
-  const handleQuestionSubmit =async(e)=>{
-    e.preventDefault();
-    setLoading(true)
 
-    const formData = {
-      sessionId,
-      messages: answer,
-      sender : "user"
-    }
+  useEffect(()=>{
+    const CheckSessionAndAnswer=async()=>{
+      try {
+        const res = await fetch("http://localhost:3000/api/message/status/", {
+          method: "POST",
+          headers: { "Content-Type": "application/json"},
+          body: JSON.stringify({sessionId, questionId})
+        })
+        const data = await res.json();
 
-    try {
-      const res = await fetch("http://localhost:3000/api/session/resume", {
-        method: "POST",
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(formData),
-      });
+        if(!res.ok){
+          throw new Error(data.error || "Failed to fetch session and question details")
+        }
 
-      const data = await res.json();
-      if(data){
-        router.push(`/test/${data.savedMessages.id}`)
+        if(data.status === "in_progress" && (data.answer).length === 0){
+          setSessionActive(true)
+        }else if(data.status === "in_progress" && (data.answer).length !== 0){
+          setHasAnswer(data.answer[0])
+        }else if(data.status === "completed" && (data.answer).length === 0){
+          setFinalQuestion(true)
+        }
+
+      } catch (error) {
+        console.error("Resume test error", error);
+        
       }
-      
-      
-    } catch (error) {
-      console.log(error)
     }
 
-    setLoading(false)
+    CheckSessionAndAnswer();
 
-  }
+  }, [sessionId, questionId])
 
+
+
+ 
   return(
+    <>
+      {sessionActive && ( <QuestionForm sessionId={sessionId} questionId={questionId}/> )}
+      {hasAnswer && (<h4>{hasAnswer.messages}</h4>)}
+      {finalQuestion && (<button>Go Home</button>)}
 
-    <form className="m-5" onSubmit={handleQuestionSubmit}>
-      <textarea
-        name="answer"
-        value={answer}
-        onChange={(e)=>setAnswer(e.target.value)} 
-        required
-      ></textarea>
-      <button  disabled={loading} className="pri-btn">
-        {loading? "loading..." : "Next Question"}
-      </button>
-    </form>
-
+    </>
   )
    
 

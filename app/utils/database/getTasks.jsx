@@ -72,8 +72,25 @@ export async function getLastMessage(sessionId){
     throw new Error(error.message);
   }
 
-  
-
   return message;
+}
+
+export async function getMessageByQuestionId(sessionId, questionId){
+  const supabase = await createClient();
+
+  const {data, error} = await supabase
+  .from("Messages")
+  .select()
+  .eq("sessionId", sessionId)
+  .eq("replyTo", questionId)
+
+  if(error){
+    console.error("error fetching :", error.message);
+    throw new Error(error.message);
+  }
+  console.log("our data",data)
+  
+  return data
+
 
 }

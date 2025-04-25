@@ -5,6 +5,7 @@ export const dynamic = 'force-dynamic';
 export default async function ({params}){
   const {id} = await params;
   const message = await getMessage(id);
+  console.log(message)
 
   return(
 

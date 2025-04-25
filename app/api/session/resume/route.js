@@ -7,12 +7,13 @@ import { NextResponse } from "next/server";
 export async function POST(req){
   try {
 
-    const {sessionId, messages, sender} = await req.json();
-    if(!sessionId || !messages || !sender){
+    const {sessionId, messages, sender, questionId} = await req.json();
+
+    if(!sessionId || !messages || !sender || !questionId){
       return NextResponse.json({error: "Missing required field"},{status : 400})
     }
 
-    const {id : questionId} = await addMessage(sessionId, messages, sender);
+    await addMessage(sessionId, messages, sender, questionId);
 
     const {latitude_id : latitudeId} = await getSession(sessionId);
     if(!latitudeId){
@@ -38,7 +39,7 @@ export async function POST(req){
     const {message, is_complete, report} = data;
 
     const agent = "assistant";
-    const savedMessages = await addMessage(sessionId, message, agent, questionId);
+    const savedMessages = await addMessage(sessionId, message, agent);
 
     if(is_complete  && report){
       const {summary, detailedReport} = report;

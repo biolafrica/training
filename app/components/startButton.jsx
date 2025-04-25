@@ -54,7 +54,7 @@ export default function StartButton({id, existingSession}){
 
       const data = await res.json();
 
-      if (!res.ok || data.sender !== 'assistant') {
+      if (!res.ok) {
         throw new Error(data.error || "Failed to fetch last message")
       };
 
