@@ -7,10 +7,12 @@ import { useState } from "react";
 export default function ReplyForm({message}){
   const {sessionId} = message;
   const [answer, setAnswer] = useState("");
+  const [loading, setLoading] = useState(false)
   const router = useRouter();
 
   const handleQuestionSubmit =async(e)=>{
     e.preventDefault();
+    setLoading(true)
 
     const formData = {
       sessionId,
@@ -35,6 +37,8 @@ export default function ReplyForm({message}){
       console.log(error)
     }
 
+    setLoading(false)
+
   }
 
   return(
@@ -46,7 +50,9 @@ export default function ReplyForm({message}){
         onChange={(e)=>setAnswer(e.target.value)} 
         required
       ></textarea>
-      <button  className="pri-btn">Next Question</button>
+      <button  disabled={loading} className="pri-btn">
+        {loading? "loading..." : "Next Question"}
+      </button>
     </form>
 
   )

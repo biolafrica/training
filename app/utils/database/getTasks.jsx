@@ -55,3 +55,23 @@ export async function getSession(sessionId){
   return session;
 
 }
+
+export async function getLastMessage(sessionId){
+  const supabase = await createClient();
+
+  const {data: message, error} = await supabase
+  .from("Messages")
+  .select("*")
+  .eq("sessionId", sessionId)
+  .order("created_at", {ascending: false})
+  .limit(1)
+  .single();
+
+  if(error){
+    console.error("error fetching last message:", error.message);
+    throw new Error(error.message);
+  }
+
+  return message;
+
+}

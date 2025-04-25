@@ -1,7 +1,7 @@
 import ReplyForm from "@/app/components/replyForm";
 import { getMessage } from "@/app/utils/database/getTasks";
 
-
+export const dynamic = 'force-dynamic';
 export default async function ({params}){
   const {id} = await params;
   const message = await getMessage(id);

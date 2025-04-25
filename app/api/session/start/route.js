@@ -7,10 +7,14 @@ import { addMessage, createNewSession } from "@/app/utils/database/addTasks";
 export async function POST(req){
 
   try {
+
     const { id: userId } = await req.json();
+    if(!userId){
+      return NextResponse.json({error : "No user id received"}, {status: 400})
+    }
+
     const { role } = await getUserRole(userId);
    
-
     // Initialize Latitude
     const latitude = new Latitude(process.env.LATITUDE_API_KEY, {
       projectId: process.env.LATITUDE_PROJECT_ID,
@@ -24,13 +28,15 @@ export async function POST(req){
     });
 
     const latitudeId = initial.uuid;
+
+    console.log(initial);
     const {message : messages} = JSON.parse(initial.response?.text )|| "Welcome to your training.";
 
 
-    const session = await createNewSession(userId, role, latitudeId);
-    const sessionId = session.id;
+    const {id : sessionId} = await createNewSession(userId, role, latitudeId);
     const sender = "assistant";
-    const savedMessages = await addMessage(sessionId, messages,sender)
+
+    const savedMessages = await addMessage(sessionId, messages, sender)
 
     return NextResponse.json({
       sessionId,
