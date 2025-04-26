@@ -4,10 +4,10 @@ import { useState } from "react";
 import useForm from "../hooks/useForm";
 import { createClient } from "../utils/supabase/client";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 
 export default function AuthForm({status}){
-
   const initialValues ={
     first_name : "",
     last_name : "",
@@ -91,7 +91,7 @@ export default function AuthForm({status}){
   }
 
   return(
-    <form className="border rounded-sm p-4 m-5 " onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit}>
 
       {errorMessage && <h4 className="text-red-600 text-center">{errorMessage}</h4>}
 
@@ -139,7 +139,7 @@ export default function AuthForm({status}){
 
       )}
 
-      <label htmlFor="email">
+      <label className="mb-5" htmlFor="email">
         <h5>Email:</h5>
         <input 
           type="email" 
@@ -150,7 +150,7 @@ export default function AuthForm({status}){
         />
       </label>
 
-      <label htmlFor="password">
+      <label className="mb-1" htmlFor="password">
         <h5>Password:</h5>
         <input 
           type="password" 
@@ -160,8 +160,9 @@ export default function AuthForm({status}){
           required
         />
       </label>
+      {status == "login" && (<h4 className="mb-5">Forget Password? <Link href="" className="font-bold">Reset Password</Link></h4>)}
 
-      <button className="pri-btn" type="submit" disabled={loading}>
+      <button className="pri-btn mb-1" type="submit" disabled={loading}>
         {loading ?(<h5>loading...</h5>):(<h5>Submit</h5>)}
       </button>
     

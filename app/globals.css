@@ -15,9 +15,9 @@ textarea {
   width: 100%;
   padding: 10px 16px;
   border-radius: 5px;
-  border: 1px solid black;
+  border: 1px solid #243837;
   font-weight: 400;
-  font-size: clamp(14.7px, 2vw, 19px);
+  font-size: clamp(14.7px, 2vw, 16px);
   line-height: clamp(21.3px, 3vw, 27px);
   letter-spacing: clamp(0.6%, 0.3vw, 0.7%);
   outline: none;
@@ -26,7 +26,6 @@ textarea {
 form{
   display: flex;
   flex-direction: column;
-  gap: 20px;
 }
 
 .pri-btn {
@@ -34,15 +33,19 @@ form{
   border-radius: 8px;
   display: flex;
   align-items: center;
+  justify-content: center;
   font-size: 16px;
   letter-spacing: 0.5px;
-  font-weight: 500;
   gap: 8px;
-  background-color: black;
+  font-weight: 600;
+  background-color: #243837;
   color: white;
-  width: fit-content;
   cursor: pointer;
   box-sizing: border-box;
 
+}
+
+a{
+  color: #243837;
 }
 
