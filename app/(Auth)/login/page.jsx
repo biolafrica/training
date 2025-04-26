@@ -8,7 +8,7 @@ export default function Login(){
 
     <div className="grid lg:grid-cols-2 h-screen">
 
-      <div className="">
+      <div>
         <div className=" md:w-1/2 mx-auto mt-30 p-5 ">
           <h4 className="text-2xl"><b>Login To Account</b></h4>
           <h4 className="mb-5">Enter Login Details to access account</h4>
@@ -17,9 +17,11 @@ export default function Login(){
         </div>
       </div>
 
-      <div className="">
+      <div>
         <div className=" hidden lg:block w-1/2 mt-50">
-          <img src="/undraw_educator_6dgp.svg" alt="training picture" />
+          <img className="mb-5" src="/undraw_educator_6dgp.svg" alt="training picture" />
+          <h4 className="font-bold text-center mb-1">Welcome back to Training</h4>
+          <h4 className="text-center">Login to continue your training</h4>
         </div>
       </div>
      

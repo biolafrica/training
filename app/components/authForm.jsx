@@ -97,7 +97,7 @@ export default function AuthForm({status}){
 
       {status === "register" && (
         <>
-          <label htmlFor="first_name">
+          <label className="mb-3" htmlFor="first_name">
             <h5>First Name:</h5>
             <input 
               type="text" 
@@ -108,7 +108,7 @@ export default function AuthForm({status}){
             />
           </label>
 
-          <label htmlFor="last_name">
+          <label className="mb-3" htmlFor="last_name">
             <h5>Last Name:</h5>
             <input 
               type="text" 
@@ -119,7 +119,7 @@ export default function AuthForm({status}){
             />
           </label>
 
-          <label htmlFor="role">
+          <label className="mb-3" htmlFor="role">
             <h5>Role:</h5>
             <select 
               name="role" 
@@ -160,9 +160,10 @@ export default function AuthForm({status}){
           required
         />
       </label>
+
       {status == "login" && (<h4 className="mb-5">Forget Password? <Link href="" className="font-bold">Reset Password</Link></h4>)}
 
-      <button className="pri-btn mb-1" type="submit" disabled={loading}>
+      <button className="pri-btn mb-1 mt-4 " type="submit" disabled={loading}>
         {loading ?(<h5>loading...</h5>):(<h5>Submit</h5>)}
       </button>
     
