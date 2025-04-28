@@ -15,11 +15,9 @@ export async function GET(request) {
     });
 
     if (!error) {
-      // Redirect user to homepage after successful authentication
       return redirect('/');
     }
   }
 
-  // Redirect to an error page if authentication fails
   return redirect('/error');
 }

@@ -10,7 +10,7 @@ export default function Login(){
       <div>
         <div className=" md:w-1/2 mx-auto mt-30 p-5 ">
           <h4 className="text-2xl"><b>Login To Account</b></h4>
-          <h4 className="mb-5">Enter Login Details to access account</h4>
+          <h4 className="mb-5">Enter login details to access account</h4>
           <AuthForm status={"login"}/>
           <h4>Don't have an account? <Link href="/signup" className="font-bold">Signup</Link></h4>
         </div>

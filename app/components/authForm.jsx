@@ -79,7 +79,9 @@ export default function AuthForm({status}){
       })
 
       if(error){
-        return setErrorMessage(error.message)
+       setErrorMessage(error.message)
+        setLoading(false);
+        return 
       }
 
       router.push("/")
@@ -161,7 +163,7 @@ export default function AuthForm({status}){
         />
       </label>
 
-      {status == "login" && (<h4 className="mb-5">Forget Password? <Link href="" className="font-bold">Reset Password</Link></h4>)}
+      {status == "login" && (<h4 className="mb-5">Forget Password? <Link href="/reset" className="font-bold">Reset Password</Link></h4>)}
 
       <button className="pri-btn mb-1 mt-4 " type="submit" disabled={loading}>
         {loading ?(<h5>loading...</h5>):(<h5>Submit</h5>)}
