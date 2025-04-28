@@ -46,7 +46,7 @@ export default function AuthForm({status}){
         }
 
         try {
-          const res = await fetch("http://localhost:3000/api/user",{
+          const res = await fetch(`${NEXT_PUBLIC_URL}/api/user`,{
             method: "POST",
             headers:{"Content-Type" : "application/json"},
             body: JSON.stringify(userData),

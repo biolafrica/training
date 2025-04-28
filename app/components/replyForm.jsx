@@ -15,7 +15,7 @@ export default function ReplyForm({message}){
   useEffect(()=>{
     const CheckSessionAndAnswer=async()=>{
       try {
-        const res = await fetch("http://localhost:3000/api/message/status/", {
+        const res = await fetch(`${NEXT_PUBLIC_URL}/api/message/status/`, {
           method: "POST",
           headers: { "Content-Type": "application/json"},
           body: JSON.stringify({sessionId, questionId})

@@ -29,7 +29,7 @@ export default function StartButton({id, existingSession}){
   
   const startTest = async()=>{
     try {
-      const res = await fetch("http://localhost:3000/api/session/start/", {
+      const res = await fetch(`${NEXT_PUBLIC_URL}/api/session/start/`, {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({id})
@@ -47,7 +47,7 @@ export default function StartButton({id, existingSession}){
 
   const resumeTest = async()=>{
     try {
-      const res = await fetch("http://localhost:3000/api/message/last", {
+      const res = await fetch(`${NEXT_PUBLIC_URL}/api/message/last`, {
         method: 'POST',
         headers: {'Content-Type' : 'application/json'},
         body: JSON.stringify({sessionId})
