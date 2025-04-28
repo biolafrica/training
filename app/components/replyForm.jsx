@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import QuestionForm from "./questionForm";
+import CompletedQuestion from "./completedAns";
 
 
 export default function ReplyForm({message}){
@@ -48,8 +49,8 @@ export default function ReplyForm({message}){
   return(
     <>
       {sessionActive && ( <QuestionForm sessionId={sessionId} questionId={questionId}/> )}
-      {hasAnswer && (<h4>{hasAnswer.messages}</h4>)}
-      {finalQuestion && (<button>Go Home</button>)}
+      {hasAnswer && (<CompletedQuestion reply={hasAnswer.messages}/>)}
+      {finalQuestion && (<button className="pri-btn my-5">Go Home</button>)}
 
     </>
   )
