@@ -1,31 +1,29 @@
 import Instruction from "@/app/components/instruction";
 import ReplyForm from "@/app/components/replyForm";
 import { getMessage } from "@/app/utils/database/getTasks";
+import Heading from "@/app/components/heading";
+import MessageCont from "@/app/components/messageCont";
+import fetchUser from "@/app/utils/supabase/fetchUser";
 
 export const dynamic = 'force-dynamic';
+
 export default async function ({params}){
   const {id} = await params;
   const message = await getMessage(id);
+  const userData = await fetchUser();
 
   return(
 
-    <div className="border border-gray-300 rounded-2xl grid lg:grid-cols-3 overflow-scroll h-[calc(100vh-2.5rem)] m-5">
+    <div className="body-cont grid lg:grid-cols-3">
 
       <Instruction/>
 
       <div className="lg:col-span-2">
 
-        <div className="flex justify-between px-5 py-7 lg:px-20  border-b border-gray-100 mb-5">
-          <p className="text-xl font-medium">Test</p>
-          <p className="font-medium">Hi, Abiodun</p>
-        </div>
+        <Heading type="Test" name={userData.user.email}/>
 
         <div className=" lg:mx-30 lg:my-20 ">
-          <div className="border m-5 p-5 rounded-lg border-gray-100 flex">
-            <img className="mx-2" src="/Support agent.svg" alt="agent icon" />
-            <h3 className="whitespace-pre-wrap font-medium">{message.messages}</h3>
-          </div>
-
+          <MessageCont data={message.messages} icon="/Support agent.svg"/>
           <ReplyForm message={message}/>
         </div>
 

@@ -1,11 +1,40 @@
+import Heading from "@/app/components/heading";
+import Instruction from "@/app/components/instruction";
+import MessageCont from "@/app/components/messageCont";
 import { getReport } from "@/app/utils/database/getTasks"
+import Link from "next/link";
+import fetchUser from "@/app/utils/supabase/fetchUser";
 
 
 export default async function SelectedReport({params}){
   const {id} = await params;
+  const userData = await fetchUser();
   const {summary} = await getReport(id)
+
   return(
-    <h4>{summary}</h4>
+
+    <div className=" body-cont grid lg:grid-cols-3">
+
+      <Instruction/>
+
+      <div className="lg:col-span-2">
+
+        <Heading type="Report" name={userData.user.email}/>
+
+        <div className="lg:mx-30 lg:my-20 ">
+
+          <MessageCont  data={summary} icon="/Document.svg" />
+
+          <div className="w-fit m-auto">
+            <Link href="/" className="pri-btn">Back Home</Link>
+          </div>
+         
+        </div>
+
+      </div>
+
+    </div>
+ 
   )
 
 }
