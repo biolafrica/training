@@ -50,7 +50,7 @@ export default function QuestionForm({sessionId, questionId}){
         required
       ></textarea>
 
-      <button  disabled={loading} className="pri-btn">
+      <button  disabled={loading} className="pri-btn my-5">
         {loading? "loading..." : "Next Question"}
       </button>
     </form>

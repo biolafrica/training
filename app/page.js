@@ -10,26 +10,22 @@ export default async function Home() {
 
   return (
     
-    <div className="border border-gray-300 rounded-2xl grid lg:grid-cols-3 overflow-hidden h-[calc(100vh-2.5rem)] m-5">
+    <div className="border border-gray-300 rounded-2xl grid lg:grid-cols-3 overflow-scroll h-[calc(100vh-2.5rem)] m-5">
 
-      <div className="overflow-scroll">
-        <Instruction/>
+      <Instruction/>
 
-        <div className="lg:col-span-2">
+      <div className="lg:col-span-2">
 
-          <div className="flex justify-between px-5 py-7  border-b border-gray-100 mb-5">
-            <p className="text-xl font-medium">Homepage</p>
-            <p className="font-medium">Welcome Abiodun</p>
-          </div>
-
-          <div className="px-5 md:px-30 m-auto w-fit py-20 ">
-            <StartButton id={userId} existingSession={existingSession}/>
-          </div>
-          
+        <div className="flex justify-between px-5 py-7  border-b border-gray-100 mb-5">
+          <p className="text-xl font-medium">Homepage</p>
+          <p className="font-medium">Welcome Abiodun</p>
         </div>
-      </div>
 
-     
+        <div className="px-5 md:px-30 m-auto w-fit py-20 ">
+          <StartButton id={userId} existingSession={existingSession}/>
+        </div>
+        
+      </div>
 
     </div>
     
