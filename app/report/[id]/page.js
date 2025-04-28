@@ -1,7 +1,7 @@
 import Heading from "@/app/components/heading";
 import Instruction from "@/app/components/instruction";
 import MessageCont from "@/app/components/messageCont";
-import { getReport } from "@/app/utils/database/getTasks"
+import { getTask } from "@/app/utils/database/getTasks"
 import Link from "next/link";
 import fetchUser from "@/app/utils/supabase/fetchUser";
 
@@ -9,7 +9,7 @@ import fetchUser from "@/app/utils/supabase/fetchUser";
 export default async function SelectedReport({params}){
   const {id} = await params;
   const userData = await fetchUser();
-  const {summary} = await getReport(id)
+  const {summary} = await getTask.getReport(id)
 
   return(
 

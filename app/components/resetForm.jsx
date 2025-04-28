@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { createClient } from "../utils/supabase/client";
+import { useRouter } from "next/navigation";
 
 export default function ResetForm(){
 
@@ -7,6 +8,7 @@ export default function ResetForm(){
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("")
   const supabase = createClient();
+  const router = useRouter();
 
   const handleSubmit= async(e)=>{
     e.preventDefault();

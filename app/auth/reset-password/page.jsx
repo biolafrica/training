@@ -1,7 +1,8 @@
+
 import PasswordResetForm from "@/app/components/passwordResetForm";
 
-export default function ResetPasswords() {
-  const { token } = router.query;
+export default async function ResetPasswords({searchParams}) {
+  const { token } = await searchParams;
 
   return(
     <div className="grid lg:grid-cols-2 h-screen">

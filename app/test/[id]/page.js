@@ -1,6 +1,6 @@
 import Instruction from "@/app/components/instruction";
 import ReplyForm from "@/app/components/replyForm";
-import { getMessage } from "@/app/utils/database/getTasks";
+import { getTask } from "@/app/utils/database/getTasks";
 import Heading from "@/app/components/heading";
 import MessageCont from "@/app/components/messageCont";
 import fetchUser from "@/app/utils/supabase/fetchUser";
@@ -9,7 +9,7 @@ export const dynamic = 'force-dynamic';
 
 export default async function ({params}){
   const {id} = await params;
-  const message = await getMessage(id);
+  const message = await getTask.getMessage(id);
   const userData = await fetchUser();
 
   return(

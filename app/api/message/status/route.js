@@ -1,4 +1,4 @@
-import { getMessageByQuestionId, getSession } from "@/app/utils/database/getTasks";
+import { getMessageByQuestionId, getSession, getTask } from "@/app/utils/database/getTasks";
 import { NextResponse } from "next/server";
 
 export async function POST(req){
@@ -8,8 +8,8 @@ export async function POST(req){
     return NextResponse.json({error: "No data recieved"}, {status: 400})
   }
 
-  const {status} = await getSession(sessionId);
-  const  answer = await getMessageByQuestionId(sessionId, questionId);
+  const {status} = await getTask.getSession(sessionId);
+  const  answer = await getTask.getMessageByQuestionId(sessionId, questionId);
   console.log("received ans", answer)
 
   return NextResponse.json({

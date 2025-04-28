@@ -1,5 +1,5 @@
-import { addMessage, addReport } from "@/app/utils/database/addTasks";
-import { getSession } from "@/app/utils/database/getTasks";
+import { addTask } from "@/app/utils/database/addTasks";
+import { getSession, getTask } from "@/app/utils/database/getTasks";
 import { markSessionComplete } from "@/app/utils/database/updateTasks";
 import { Latitude, LatitudeApiError } from "@latitude-data/sdk";
 import { NextResponse } from "next/server";
@@ -13,9 +13,9 @@ export async function POST(req){
       return NextResponse.json({error: "Missing required field"},{status : 400})
     }
 
-    await addMessage(sessionId, messages, sender, questionId);
+    await addTask.addMessage(sessionId, messages, sender, questionId);
 
-    const {latitude_id : latitudeId} = await getSession(sessionId);
+    const {latitude_id : latitudeId} = await getTask.getSession(sessionId);
     if(!latitudeId){
       return NextResponse.json({error : "Latitude session not found"}, {status : 400})
     }
@@ -39,12 +39,12 @@ export async function POST(req){
     const {message, is_complete, report} = data;
 
     const agent = "assistant";
-    const savedMessages = await addMessage(sessionId, message, agent);
+    const savedMessages = await addTask.addMessage(sessionId, message, agent);
 
     if(is_complete  && report){
       const {summary, detailedReport} = report;
 
-      await addReport(sessionId, summary, detailedReport);
+      await addTask.addReport(sessionId, summary, detailedReport);
       await markSessionComplete(sessionId);
     }
 

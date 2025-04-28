@@ -3,7 +3,6 @@ import fetchUser from "./utils/supabase/fetchUser";
 import { checkExistingSession } from "./utils/database/checkTasks";
 import Instruction from "./components/instruction";
 import Heading from "./components/heading";
-import { getUserRole } from "./utils/database/getTasks";
 
 export default async function Home() {
   const userData = await fetchUser();
