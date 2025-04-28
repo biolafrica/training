@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@latitude-data/sdk": "^3.0.2",
+    "@lottiefiles/dotlottie-react": "^0.13.4",
     "@supabase/ssr": "^0.6.1",
     "@supabase/supabase-js": "^2.49.4",
     "next": "15.3.1",

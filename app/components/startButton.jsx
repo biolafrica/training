@@ -1,14 +1,16 @@
 "use client"
 
 import { useRouter } from "next/navigation"
+import { useState } from "react";
 
 export default function StartButton({id, existingSession}){
   const sessionId = existingSession?.id;
   const router = useRouter();
+  const [loading, setLoading]= useState(false)
 
   const handleButtonClick = async()=>{
+    setLoading(true);
     try {
-      
       if(existingSession?.status === "in_progress"){
         await resumeTest();
       }else if(existingSession?.status === "completed"){
@@ -21,6 +23,8 @@ export default function StartButton({id, existingSession}){
       console.error("Handle button error:", error);
       
     }
+
+    setLoading(false)
   }
   
   const startTest = async()=>{
@@ -74,8 +78,8 @@ export default function StartButton({id, existingSession}){
   }
 
   return(
-    <button onClick={handleButtonClick} className="pri-btn">
-      {getButtonText()}
+    <button disabled={loading} onClick={handleButtonClick} className="pri-btn">
+      {loading ? "loading.." : getButtonText()}
     </button>
   )
 
