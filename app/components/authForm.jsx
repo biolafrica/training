@@ -36,7 +36,6 @@ export default function AuthForm({status}){
       })
 
       if(data?.user?.id){
-        console.log(data.user.id)
 
         const userData = {
           user_id : data.user.id,

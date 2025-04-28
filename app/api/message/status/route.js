@@ -10,7 +10,6 @@ export async function POST(req){
 
   const {status} = await getTask.getSession(sessionId);
   const  answer = await getTask.getMessageByQuestionId(sessionId, questionId);
-  console.log("received ans", answer)
 
   return NextResponse.json({
     status,

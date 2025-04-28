@@ -29,7 +29,7 @@ export async function POST(req){
 
     const latitudeId = initial.uuid;
 
-    console.log(initial);
+    
     const {message : messages} = JSON.parse(initial.response?.text )|| "Welcome to your training.";
 
 

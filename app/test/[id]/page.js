@@ -7,7 +7,7 @@ import fetchUser from "@/app/utils/supabase/fetchUser";
 
 export const dynamic = 'force-dynamic';
 
-export default async function ({params}){
+export default async function selectedTest({params}){
   const {id} = await params;
   const message = await getTask.getMessage(id);
   const userData = await fetchUser();

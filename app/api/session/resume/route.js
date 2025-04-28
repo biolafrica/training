@@ -20,7 +20,7 @@ export async function POST(req){
       return NextResponse.json({error : "Latitude session not found"}, {status : 400})
     }
 
-    console.log("latitude-ID", latitudeId)
+    
 
     const latitude = new Latitude(process.env.LATITUDE_API_KEY, {
       projectId: process.env.LATITUDE_PROJECT_ID,
@@ -33,7 +33,6 @@ export async function POST(req){
       {stream: false}
     );
 
-    console.log(continuedResponse)
 
     const data = JSON.parse(continuedResponse.response?.text || "{}");
     const {message, is_complete, report} = data;
