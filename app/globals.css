@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+body{
+  overflow: hidden;
+}
 
 input[type="text"],
 input[type="password"],
@@ -21,6 +24,7 @@ textarea {
   line-height: clamp(21.3px, 3vw, 27px);
   letter-spacing: clamp(0.6%, 0.3vw, 0.7%);
   outline: none;
+
 }
 
 form{

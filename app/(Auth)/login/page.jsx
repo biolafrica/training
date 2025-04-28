@@ -1,5 +1,4 @@
 import AuthForm from "@/app/components/authForm"
-import Image from "next/image"
 import Link from "next/link"
 
 

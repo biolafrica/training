@@ -74,7 +74,7 @@ export default function StartButton({id, existingSession}){
   }
 
   return(
-    <button onClick={handleButtonClick} className="text-center border bg-black text-white p-5 cursor-pointer">
+    <button onClick={handleButtonClick} className="pri-btn">
       {getButtonText()}
     </button>
   )
