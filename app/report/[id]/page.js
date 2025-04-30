@@ -3,12 +3,10 @@ import Instruction from "@/app/components/instruction";
 import MessageCont from "@/app/components/messageCont";
 import { getTask } from "@/app/utils/database/getTasks"
 import Link from "next/link";
-import fetchUser from "@/app/utils/supabase/fetchUser";
 
 
 export default async function SelectedReport({params}){
   const {id} = await params;
-  const userData = await fetchUser();
   const {summary} = await getTask.getReport(id)
 
   return(
@@ -19,7 +17,7 @@ export default async function SelectedReport({params}){
 
       <div className="lg:col-span-2">
 
-        <Heading type="Report" name={userData.user.email}/>
+        <Heading type="Document"/>
 
         <div className="lg:mx-30 lg:my-20 ">
 

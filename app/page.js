@@ -17,7 +17,7 @@ export default async function Home() {
 
       <div className="lg:col-span-2">
 
-        <Heading type="Homepage" name={userData.user.email}/>
+        <Heading type="Home"/>
 
         <div className="px-5 md:px-30 m-auto w-fit py-20 ">
           <StartButton id={userId} existingSession={existingSession}/>
