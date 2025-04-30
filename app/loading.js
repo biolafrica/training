@@ -1,17 +1,12 @@
+
 "use client"
-import React from "react"
-import { DotLottieReact } from "@lottiefiles/dotlottie-react"
+import Lottie from "lottie-react"
+import animationData from "../public/Animation - 1745860913809.json" // adjust path
 
-export default function Loading(){
-  return(
-    <div className="loading w-[100px] h-[100px] flex justify-center items-center">
-      <DotLottieReact
-        src="/Animation - 1745860913809.json"
-        loop
-        autoplay
-      />
-
+export default function Loading() {
+  return (
+    <div className="w-[120px] h-[120px] flex justify-center items-center">
+      <Lottie animationData={animationData} loop autoplay />
     </div>
-
   )
 }

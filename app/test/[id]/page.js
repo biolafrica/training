@@ -3,6 +3,7 @@ import ReplyForm from "@/app/components/replyForm";
 import { getTask } from "@/app/utils/database/getTasks";
 import Heading from "@/app/components/heading";
 import MessageCont from "@/app/components/messageCont";
+import Loading from "@/app/loading";
 
 
 export const dynamic = 'force-dynamic';
