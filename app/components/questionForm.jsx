@@ -21,7 +21,7 @@ export default function QuestionForm({sessionId, questionId}){
     }
 
     try {
-      const res = await fetch(`${NEXT_PUBLIC_URL}/api/session/resume`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/session/resume`, {
         method: "POST",
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(formData),

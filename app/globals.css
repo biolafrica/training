@@ -40,7 +40,13 @@ form{
   @apply overflow-scroll h-[calc(100vh-2.5rem)] m-5 border border-gray-300 rounded-2xl
 }
 
+.pri-btn:hover{
+  filter: brightness(0.9);
+}
 
+.pri-btn:active{
+  transform: translateY(2px);
+}
 
 a{
   color: #243837;

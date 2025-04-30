@@ -17,8 +17,9 @@ export default function ResetForm(){
     const{error} = await supabase.auth.resetPasswordForEmail(email);
 
     if(error){
-      return setErrorMessage(error.message)
-      setLoading(false)
+      setErrorMessage(error.message);
+      setLoading(false);
+      return; 
 
     }
 
