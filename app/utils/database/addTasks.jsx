@@ -20,7 +20,7 @@ export const addTask = {
     if(error){
       console.error(`Insert Error in ${table}:`, error.message);
       throw new Error(error.message)
-    }
+    } 
 
     return data
   },

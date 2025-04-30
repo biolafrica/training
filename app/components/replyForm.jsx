@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import QuestionForm from "./questionForm";
 import CompletedQuestion from "./completedAns";
+import Link from "next/link";
 
 
 export default function ReplyForm({message}){
@@ -50,7 +51,7 @@ export default function ReplyForm({message}){
     <>
       {sessionActive && ( <QuestionForm sessionId={sessionId} questionId={questionId}/> )}
       {hasAnswer && (<CompletedQuestion reply={hasAnswer.messages}/>)}
-      {finalQuestion && (<button className="pri-btn my-5">Go Home</button>)}
+      {finalQuestion && (<Link href="/" className="pri-btn my-5">Go Home</Link>)}
 
     </>
   )

@@ -28,66 +28,69 @@ export default function AuthForm({status}){
     e.preventDefault();
     setLoading(true);
     setErrorMessage("");
+    try {
+      
+      if(status === "register"){
+        const {data:registeredUser, error: signUpError} = await supabase.auth.signUp({
+          email: formData.email,
+          password: formData.password
+        })
 
-    if(status === "register"){
-      const {data, error} = await supabase.auth.signUp({
-        email: formData.email,
-        password: formData.password
-      })
+        if(signUpError){
+          setErrorMessage(signUpError.message);
+          setLoading(false)
+          throw new Error(signUpError.message);
+        }
 
-      if(data?.user?.id){
+        const user = registeredUser?.user;
+        if(!user) throw new Error("User ID not returned")
 
         const userData = {
-          user_id : data.user.id,
+          user_id : user.id,
           email : formData.email,
           first_name : formData.first_name,
           last_name: formData.last_name,
           role: formData.role
         }
+        
+        const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/user`,{
+          method: "POST",
+          headers:{"Content-Type" : "application/json"},
+          body: JSON.stringify(userData),
+        });
 
-        try {
-          const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/user`,{
-            method: "POST",
-            headers:{"Content-Type" : "application/json"},
-            body: JSON.stringify(userData),
-          });
+        const newUser = await res.json();
+        if (!newUser?.data){ 
+          setErrorMessage("Email has been registered")
+          setLoading(false)
+          throw new Error("Failed to save user data")
+        };
 
-          const newUser = await res.json();
-          if(newUser.data){
-            router.push("/auth/verify")
-            resetForm();
-          }
-          
-        } catch (error) {
-          console.log(error)
-          
+        router.push("/auth/verify")
+        resetForm();
+      
+      }else{
+        const{error:signInError} = await supabase.auth.signInWithPassword({
+          email: formData.email,
+          password: formData.password
+        })
+
+        if (signInError){
+          setErrorMessage(signInError.message);
+          setLoading(false);
+          throw new Error(signInError.message);
         }
 
+        router.push("/")
+        resetForm()
       }
 
-      if(error){
-        setErrorMessage(error.message);
-        setLoading(false)
-        return;
-      }
-     
-    }else{
-      const{error} = await supabase.auth.signInWithPassword({
-        email: formData.email,
-        password: formData.password
-      })
-
-      if(error){
-       setErrorMessage(error.message)
-        setLoading(false);
-        return 
-      }
-
-      router.push("/")
-      resetForm()
+    } catch (error) {
+      setErrorMessage(err.message || "Something went wrong");
+      setLoading(false);
     }
 
-    setLoading(false);
+
   
   }
 
