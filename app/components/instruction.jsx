@@ -18,7 +18,7 @@ export default function Instruction (){
       <p className="font-bold mb-5 text-center">AI-Powered Food Delivery Staff Training and Assessment.</p>
       <p className="mb-2 font-medium text-center">Instructions:</p>
       <p className="lg:hidden font-bold text-blue-700 text-center cursor-pointer" onClick={handleInstructionDisplay}>
-        {display ? "Read less":"Read more"}
+        {display ? "close":"Read"}
       </p>
 
       <div className={`text-gray-700 ${!display && "hidden"} lg:block`}>
