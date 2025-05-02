@@ -33,9 +33,14 @@ export async function POST(req){
       {stream: false}
     );
 
+    const jsonText = continuedResponse.response.text.replace(/```json|```/g, '').trim();
 
-    const data = JSON.parse(continuedResponse.response?.text || "{}");
+    const data = JSON.parse(jsonText)
+
     const {message, is_complete, report} = data;
+    console.log("is complete", is_complete)
+    console.log(data)
+  
 
     const agent = "assistant";
     const savedMessages = await addTask.addMessage(sessionId, message, agent);

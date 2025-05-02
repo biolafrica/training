@@ -27,11 +27,13 @@ export async function POST(req){
       parameters: { role },
     });
 
-    const latitudeId = initial.uuid;
-
+    console.log(initial)
     
-    const {message : messages} = JSON.parse(initial.response?.text )|| "Welcome to your training.";
+   
+    const latitudeId = initial.uuid;
+    const jsonText = initial.response.text.replace(/```json|```/g, '').trim();
 
+    const {message : messages} =  JSON.parse(jsonText);
 
     const {id : sessionId} = await addTask.createNewSession(userId, role, latitudeId);
     const sender = "assistant";
