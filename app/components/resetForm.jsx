@@ -14,7 +14,7 @@ export default function ResetForm(){
     e.preventDefault();
     setLoading(true)
 
-    const{error} = await supabase.auth.resetPasswordForEmail(email);
+    const {error} = await supabase.auth.resetPasswordForEmail(email);
 
     if(error){
       setErrorMessage(error.message);
@@ -33,7 +33,7 @@ export default function ResetForm(){
 
       {errorMessage && (<p className="text-red-600">{errorMessage}</p>)}
 
-      <label className="mb-5" htmlFor="email">
+      <label className="mb-5" >
         <h5>Email:</h5>
         <input 
           type="email" 
