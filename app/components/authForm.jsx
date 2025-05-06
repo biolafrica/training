@@ -86,7 +86,7 @@ export default function AuthForm({status}){
       }
 
     } catch (error) {
-      setErrorMessage(err.message || "Something went wrong");
+      setErrorMessage(error.message || "Something went wrong");
       setLoading(false);
     }
 
@@ -101,7 +101,7 @@ export default function AuthForm({status}){
 
       {status === "register" && (
         <>
-          <label className="mb-3" htmlFor="first_name">
+          <label className="mb-3">
             <h5>First Name:</h5>
             <input 
               type="text" 
@@ -112,7 +112,7 @@ export default function AuthForm({status}){
             />
           </label>
 
-          <label className="mb-3" htmlFor="last_name">
+          <label className="mb-3">
             <h5>Last Name:</h5>
             <input 
               type="text" 
@@ -123,7 +123,7 @@ export default function AuthForm({status}){
             />
           </label>
 
-          <label className="mb-3" htmlFor="role">
+          <label className="mb-3">
             <h5>Role:</h5>
             <select 
               name="role" 
@@ -143,7 +143,7 @@ export default function AuthForm({status}){
 
       )}
 
-      <label className="mb-5" htmlFor="email">
+      <label className="mb-5">
         <h5>Email:</h5>
         <input 
           type="email" 
@@ -154,7 +154,7 @@ export default function AuthForm({status}){
         />
       </label>
 
-      <label className="mb-1" htmlFor="password">
+      <label className="mb-1">
         <h5>Password:</h5>
         <input 
           type="password" 

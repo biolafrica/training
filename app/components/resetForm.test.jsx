@@ -8,7 +8,7 @@ jest.mock("next/navigation", ()=>({
 }))
 
 jest.mock("../utils/supabase/client", ()=>({
-   createClient: jest.fn()
+  createClient: jest.fn()
 }))
 
 const pushMock = jest.fn();
