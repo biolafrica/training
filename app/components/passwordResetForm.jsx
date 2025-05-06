@@ -31,7 +31,7 @@ export default function PasswordResetForm({token}){
     <form onSubmit={handleSubmit}>
       {errorMessage && <p className="text-red-600">{errorMessage}</p>}
 
-      <label className="mb-5" htmlFor="newPassword">
+      <label className="mb-5">
         <h5>New Password:</h5>
         <input
           type="password"
