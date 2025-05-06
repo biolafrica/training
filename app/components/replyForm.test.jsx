@@ -1,8 +1,11 @@
 import ReplyForm from "./replyForm";
 import { render, screen, waitFor,} from "@testing-library/react";
+import { useRouter } from "next/navigation";
+
+jest.mock("next/navigation", () => ({ useRouter: jest.fn() }));
 
 
-describe("test suite: Replyform componenet", ()=>{
+describe("test suite: Replyform component", ()=>{
   const mockMessage = { sessionId: "session123", id: "q1" };
 
   beforeEach(() => {
