@@ -62,6 +62,6 @@ export const addTask = {
     }
     return await this.insertSingleRow("TrainingReport", reportData);
 
-  }
+  },
 
 } 
