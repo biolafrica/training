@@ -42,7 +42,7 @@ export default function QuestionForm({sessionId, questionId}){
 
   return(
 
-    <form className="m-5" onSubmit={handleQuestionSubmit}>
+    <form role="form" className="m-5" onSubmit={handleQuestionSubmit}>
       <textarea
         name="answer"
         value={answer}
