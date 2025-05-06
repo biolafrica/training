@@ -19,7 +19,4 @@ export async function checkExistingSession(userId){
     console.error("error fetching existing session:", error);
     throw new Error(error.message);
   }
-
- 
-
 }
