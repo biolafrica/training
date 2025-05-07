@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getUserRole, getTask } from "@/app/utils/database/getTasks";
+import {getTask } from "@/app/utils/database/getTasks";
 import { Latitude, LatitudeApiError } from "@latitude-data/sdk";
 import { addTask } from "@/app/utils/database/addTasks";
 

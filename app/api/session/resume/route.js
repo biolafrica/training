@@ -1,6 +1,6 @@
-import { addTask } from "@/app/utils/database/addTasks";
-import { getSession, getTask } from "@/app/utils/database/getTasks";
-import { markSessionComplete } from "@/app/utils/database/updateTasks";
+import { addTask } from "../../../utils/database/addTasks";
+import {getTask } from "../../../utils/database/getTasks";
+import { markSessionComplete } from "../../../utils/database/updateTasks";
 import { Latitude, LatitudeApiError } from "@latitude-data/sdk";
 import { NextResponse } from "next/server";
 
