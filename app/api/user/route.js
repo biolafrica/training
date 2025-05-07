@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import {addTask} from "@/app/utils/database/addTasks";
+import {addTask} from "../../utils/database/addTasks";
 
 export async function POST(request){
 
