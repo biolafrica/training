@@ -4,6 +4,7 @@ import { NextResponse } from "next/server";
 export async function POST(req){
 
   const {sessionId, questionId} = await req.json();
+  
   if(!sessionId || !questionId){
     return NextResponse.json({error: "No data recieved"}, {status: 400})
   }
