@@ -32,7 +32,7 @@ describe("test suite: Start Button Componenets", ()=>{
     expect(screen.getByText(/start test/i)).toBeInTheDocument();
   })
 
-  test("pushes to exact route for 'startTest' buton",async()=>{
+  test("pushes to exact route for 'startTest' button",async()=>{
     fetch.mockResolvedValueOnce({
       ok:true,
       json: async ()=>( {savedMessages: {id: "abc123"} } )
@@ -50,10 +50,10 @@ describe("test suite: Start Button Componenets", ()=>{
     })
   })
 
-  test("pushes to exact route for 'resumeTest' buton", async()=>{
+  test("pushes to exact route for 'resumeTest' button", async()=>{
     fetch.mockResolvedValueOnce({
       ok:true,
-      json: async ()=>( {id: "last123"})
+      json: async ()=>({data:{id: "last123"}})
     })
 
     render(<StartButton id="123" existingSession={{status: "in_progress", id: "sess1"}}/>)
@@ -68,7 +68,7 @@ describe("test suite: Start Button Componenets", ()=>{
     })
   })
 
-  test("pushes to exact route for 'viewReport' buton", async()=>{
+  test("pushes to exact route for 'viewReport' button", async()=>{
     render(<StartButton id="123" existingSession={{status: "completed", id: "sess99"}}/>)
     fireEvent.click(screen.getByRole("button"))
     expect(pushMock).toHaveBeenCalledWith("/report/sess99")

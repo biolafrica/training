@@ -3,8 +3,7 @@ import { NextResponse } from "next/server";
 
 export async function POST(req) {
   try {
-    const body = await req.json();
-    const sessionId = body?.sessionId;
+    const {sessionId} = await req.json();
 
     if (!sessionId) {
       return NextResponse.json({ error: "No sessionId received" }, { status: 400 });

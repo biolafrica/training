@@ -12,6 +12,7 @@
 
 # testing
 /coverage
+babel.config.js
 
 # next.js
 /.next/
