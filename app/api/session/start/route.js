@@ -1,19 +1,23 @@
 import { NextResponse } from "next/server";
-import {getTask } from "@/app/utils/database/getTasks";
+import {getTask } from "../../../utils/database/getTasks";
 import { Latitude, LatitudeApiError } from "@latitude-data/sdk";
-import { addTask } from "@/app/utils/database/addTasks";
+import { addTask } from "../../../utils/database/addTasks";
 
 
 export async function POST(req){
 
   try {
-
     const { id: userId } = await req.json();
+
     if(!userId){
       return NextResponse.json({error : "No user id received"}, {status: 400})
     }
 
     const { role } = await getTask.getUserRole(userId);
+
+     if(!role){
+      return NextResponse.json({error : "role not found"}, {status : 400})
+    }
    
     // Initialize Latitude
     const latitude = new Latitude(process.env.LATITUDE_API_KEY, {
@@ -45,7 +49,7 @@ export async function POST(req){
       latitudeId,
       savedMessages,
       is_complete: initial.response?.is_complete || false,
-    });
+    }, {status: 200});
 
      
   } catch (error) {
