@@ -1,15 +1,10 @@
 import { checkExistingSession } from "./checkTasks";
 import { markSessionComplete } from "./updateTasks";
-import { getTask } from "./getTasks";
 import { createClient } from "../supabase/server";
-import { NextResponse } from "next/server";
+
 
 jest.mock("../supabase/server", () => ({
   createClient: jest.fn(),
-}));
-
-jest.mock("next/server", () => ({
-  NextResponse: jest.fn(),
 }));
 
 describe("test suite: supabase utility functions ", ()=>{
