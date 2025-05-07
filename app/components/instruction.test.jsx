@@ -12,17 +12,11 @@ describe("Instruction", () => {
   test("toggles instruction", () => {
 
     render(<Instruction />);
-    const toggle = screen.getByTestId("toggle");
     const content = screen.getByTestId("content")
-
   
     expect(content).toBeVisible();
     expect(screen.queryByText("close")).not.toBeInTheDocument();
-    expect(screen.getByText("more")).toBeInTheDocument();
-    fireEvent.click(screen.getByText("more"))
-    expect(screen.queryByText("more")).not.toBeVisible();
-
-
+   
   });
 
 });

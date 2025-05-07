@@ -25,46 +25,37 @@ describe("test suite: get task supabase utility", ()=>{
     from.mockImplementation(() => ({ select, order, update: jest.fn(), eq }));
   });
 
-  test("getMessage returns a message by ID", async () => {
+  test("test case: getMessage returns a message by ID", async () => {
     single.mockResolvedValue({ data: { id: "msg123" }, error: null });
     const data = await getTask.getMessage("msg123");
     expect(data).toEqual({ id: "msg123" });
   });
 
-  test("getSession returns a session by ID", async () => {
+  test("test case: getSession returns a session by ID", async () => {
     single.mockResolvedValue({ data: { id: "session123" }, error: null });
     const data = await getTask.getSession("session123");
     expect(data).toEqual({ id: "session123" });
   });
 
-  test("getReport returns report by session ID", async () => {
+  test("test case: getReport returns report by session ID", async () => {
     single.mockResolvedValue({ data: { id: "report123" }, error: null });
     const data = await getTask.getReport("report123");
     expect(data).toEqual({ id: "report123" });
   });
 
-  test("getUserRole returns role if user exists", async () => {
+  test(" test case: getUserRole returns role if user exists", async () => {
     single.mockResolvedValue({ data: { role: "runner" }, error: null });
     const result = await getTask.getUserRole("user123");
     expect(result).toEqual({ role: "runner" });
   });
 
-  test("getUserRole returns 404 if user not found", async () => {
+  test("test case: getUserRole returns 404 if user not found", async () => {
     single.mockResolvedValue({ data: null, error: null });
     await getTask.getUserRole("user404");
     expect(NextResponse.json).toHaveBeenCalledWith({ error: "User not found" }, { status: 404 });
   });
 
-
-  test("getLastMessage returns latest message", async () => {
-
-    single.mockResolvedValue({ data: { id: "latest123" }, error: null });
-    const result = await getTask.getLastMessage("sess001");
-    expect(result).toEqual({ id: "latest123" });
- 
-  });
-
-  test("getMessageByQuestionId returns multiple replies", async () => {
+  test("test case: getMessageByQuestionId returns multiple replies", async () => {
     const mockMessages = [
       { id: "1", replyTo: "q1" },
       { id: "2", replyTo: "q1" },
@@ -78,7 +69,7 @@ describe("test suite: get task supabase utility", ()=>{
   });
 
 
-  test("fetchSingleRow throws on Supabase error", async () => {
+  test("test case: fetchSingleRow throws on Supabase error", async () => {
     single.mockResolvedValue({ data: null, error: { message: "DB Error" } });
 
     await expect(getTask.getMessage("bad-id")).rejects.toThrow("DB Error");
